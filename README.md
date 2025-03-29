@@ -8,6 +8,7 @@ A simple web application that automatically identifies and redacts PHI from text
    ```
    git clone https://github.com/brendonwanderlust/invene-phi-redactor-ui.git 
    ```
+   
 2. Navigate to the frontend directory from VS Code
    ```
    cd your-local-frontend-directory
