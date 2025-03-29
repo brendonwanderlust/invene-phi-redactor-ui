@@ -1,27 +1,68 @@
-# InvenePhiRedactorUi
+# PHI Sanitizer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
+A simple web application that automatically identifies and redacts PHI from text files  
 
-## Development server
+### Frontend Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. Clone the repository
+   ```
+   git clone https://github.com/brendonwanderlust/invene-phi-redactor-ui.git 
+   ```
+2. Navigate to the frontend directory from VS Code
+   ```
+   cd your-local-frontend-directory
+   ```
 
-## Code scaffolding
+3. Install dependencies
+   ```
+   npm install
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+4. Start the Angular development server
+   ```
+   ng serve
+   ```
 
-## Build
+5. Access the application by navigating to `http://localhost:4200`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Usage
 
-## Running unit tests
+1. Open your browser and navigate to `http://localhost:4200`
+2. Click the "Redact PHI" to select one or more text files containing PHI
+3. The browser will automatically download a ZIP file containing the sanitized versions of your files
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## PHI Sanitization Approach 
 
-## Running end-to-end tests
+### 1. Field Name Detection
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+The system recognizes common PHI field names and redacts the corresponding values. 
+When a line contains a known PHI field, everything after the colon is redacted with 'X' characters.
 
-## Further help
+PHI fields detected include:
+"Address",
+"DOB",
+"Date of Birth",
+"Birth Date",
+"Social",
+"Social Security Number",
+"SSN",
+"Patient Name",
+"Email address",
+"Medical Record Number",
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### 2. Pattern-Based Detection
+
+For PHI that follows predictable patterns, the system uses regular expressions to identify and redact:
+
+- Social Security Numbers: Matches the pattern XXX-XX-XXXX
+- Phone Numbers: Recognizes various formats (XXX-XXX-XXXX, (XXX) XXX-XXXX, etc.)
+- Email Addresses: Identifies standard email patterns and replaces with XXX@XXX.COM
+ 
+## Design Decisions and Assumptions
+
+### Assumptions
+
+- Text-Based Files: The current implementation assumes all files are text-based
+- Line-by-Line Processing: PHI detection works on a per-line basis, not across lines
+- Common PHI Formats: Focuses on standard US formats for PHI (SSN, phone numbers, etc.)
+- Colon Delimiter: For field-based PHI, assumes a colon separates the field name from the value
