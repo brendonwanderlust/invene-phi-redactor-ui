@@ -10,7 +10,6 @@ import { PhiSanitizationService } from './services/phi-sanitization.service';
   imports: [RouterOutlet, CommonModule, HttpClientModule],
   providers: [PhiSanitizationService, CommonModule, HttpClientModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'invene-phi-redactor-ui';

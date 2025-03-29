@@ -13,7 +13,7 @@ export class PhiSanitizationService {
     const formData = new FormData();
 
     files.forEach((file) => {
-      formData.append('files', file); // Ensure 'files' matches the backend parameter name
+      formData.append('files', file);
     });
 
     return this.http.post(`${this.apiUrl}/sanitize`, formData, {
